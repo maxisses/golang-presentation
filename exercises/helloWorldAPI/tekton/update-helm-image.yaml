@@ -1,0 +1,31 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: update-image-name-in-helm
+spec:
+  params:
+    - description: Location of image to be patched with
+      name: IMAGE
+      type: string
+    - description: git context directory
+      name: context
+      type: string
+  steps:
+    - image: mikefarah/yq
+      name: helm-update
+      resources: {}
+      script: >
+        cd ./source
+
+        echo | ls -al
+
+        SRC_PATH="$(params.context)/charts/go-api/"
+
+        cd $SRC_PATH
+
+        yq eval --inplace '.container.image |= sub(".*", "$(params.IMAGE)")'
+        values.yaml
+
+        cat values.yaml
+  workspaces:
+    - name: source
