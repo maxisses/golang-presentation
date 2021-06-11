@@ -1,6 +1,6 @@
 replicaCount: 1
 container:
-  image: image-registry.openshift-image-registry.svc:5000/kbs-beispiel/test4:latest
+  image: image-registry.openshift-image-registry.svc:5000/kbs-beispiel/maxtestimage:latest
   port: 8080
 nameOverride: ""
 fullnameOverride: ""
